@@ -47,13 +47,13 @@ class Agent():
             self.terminal_memory = np.zeros(self.mem_size,dtype=np.bool)
 
 
-    def store_transition(self, state, action, reward, state_, done):
+    def store_transition(self, state, action, reward, state_):
          index = self.mem_cntr % self.mem_size 
          self.state_memory[index] = state
          self.new_state_memory[index] = state_
          self.reward_memory[index] = reward
          self.action_memory[index] = action
-         self.terminal_memory[index] = done
+        
 
          self.mem_cntr += 1
 
@@ -79,13 +79,11 @@ class Agent():
         state_batch = T.tensor(self.state_memory[batch]).to(self.Q_eval.device)
         new_state_batch = T.tensor(self.new_state_memory[batch]).to(self.Q_eval.device)
         reward_batch = T.tensor(self.reward_memory[batch]).to(self.Q_eval.device)
-        terminal_batch = T.tensor(self.terminal_memory[batch]).to(self.Q_eval.device)
 
         action_batch = self.action_memory[batch]
 
         q_eval = self.Q_eval.forward(state_batch)[batch_index, action_batch]
         q_next = self.Q_eval.forward(new_state_batch)
-        q_next[terminal_batch] = 0.0
 
         q_target = reward_batch + self.gamma * T.max(q_next, dim=1)[0]
 

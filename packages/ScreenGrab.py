@@ -19,7 +19,7 @@ def main():
             cv2.destroyAllWindows()
             break
         
-def getScreen():
+def getScreen(): #returns current Frame
 
     screen = np.array(ImageGrab.grab(bbox=(0,0,1920,1080)))
     process_image(screen)
