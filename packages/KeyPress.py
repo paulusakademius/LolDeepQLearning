@@ -4,7 +4,7 @@ import time
 
 SendInput = ctypes.windll.user32.SendInput
 
-Q = 0x10
+Q = 0x10 
 W = 0x11
 E = 0x12
 R = 0x13

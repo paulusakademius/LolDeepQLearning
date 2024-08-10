@@ -1,7 +1,6 @@
 import numpy as np
 from PIL import ImageGrab
 import cv2
-from Press.KeyPress import PressKey,ReleaseKey,Q,W,E,R
 import time
 
 
@@ -19,10 +18,13 @@ def main():
         if cv2.waitKey(25) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
             break
-        PressKey(W)
-        time.sleep(1)
-        ReleaseKey(W)
         
+def getScreen():
+
+    screen = np.array(ImageGrab.grab(bbox=(0,0,1920,1080)))
+    process_image(screen)
+    return screen
+
 
 if __name__ == "__main__":
     main()        
