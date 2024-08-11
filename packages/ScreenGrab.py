@@ -2,6 +2,8 @@ import numpy as np
 from PIL import ImageGrab
 import cv2
 import time
+from numberRecognition import Recognizer
+
 
 
 def process_image(image):
@@ -10,14 +12,7 @@ def process_image(image):
     processedImage = cv2.resize(processedImage,None,fx=0.5,fy=0.5,interpolation= cv2.INTER_LINEAR)
     return processedImage
 
-def main():
-    while(True):
 
-        printscreen = np.array(ImageGrab.grab(bbox=(0,0,1920,1080)))
-        cv2.imshow('window',process_image(printscreen))
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            cv2.destroyAllWindows()
-            break
         
 def getScreen(): #returns current Frame
 
@@ -26,5 +21,27 @@ def getScreen(): #returns current Frame
     return screen
 
 
-if __name__ == "__main__":
-    main()        
+def getKillsNumber():
+    kills = np.array(ImageGrab.grab(bbox=(1660,0,1688,28)))
+    return kills
+
+def getDeathsNumber():
+    kills = np.array(ImageGrab.grab(bbox=(0,0,0,0)))
+
+def getGoldNumber():
+    kills = np.array(ImageGrab.grab(bbox=(0,0,0,0)))
+
+def getCsNumber():
+    kills = np.array(ImageGrab.grab(bbox=(0,0,0,0)))
+
+
+if __name__ == '__main__':
+    time.sleep(10)
+    n = Recognizer()
+    num = n.recognize(image = cv2.cvtColor(getKillsNumber(), cv2.COLOR_BGR2GRAY))
+    print(num)
+    while(True):
+        cv2.imshow('window',cv2.cvtColor(getKillsNumber(),cv2.COLOR_BGR2RGB))
+        if cv2.waitKey(25) & 0xFF == ord('q'):
+            cv2.destroyAllWindows()
+            break
