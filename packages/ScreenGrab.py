@@ -2,7 +2,7 @@ import numpy as np
 from PIL import ImageGrab
 import cv2
 import time
-from numberRecognition import Recognizer
+
 
 
 
@@ -36,10 +36,8 @@ def getCsNumber():
 
 
 if __name__ == '__main__':
-    time.sleep(10)
-    n = Recognizer()
-    num = n.recognize(image = cv2.cvtColor(getKillsNumber(), cv2.COLOR_BGR2GRAY))
-    print(num)
+    time.sleep(5)
+    print(cv2.cvtColor(getKillsNumber(), cv2.COLOR_BGR2GRAY).shape)
     while(True):
         cv2.imshow('window',cv2.cvtColor(getKillsNumber(),cv2.COLOR_BGR2RGB))
         if cv2.waitKey(25) & 0xFF == ord('q'):
